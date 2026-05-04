@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/navigation"
-import { ArrowLeft, Eye, MapPin } from "lucide-react"
+import { ArrowLeft, Eye, MapPin, ChevronLeft, ChevronRight } from "lucide-react"
 
 interface Project {
   _id: string
@@ -15,6 +15,7 @@ interface Project {
   area: string
   year: string
   image: string
+  images?: string[]
 }
 
 import { useLocale } from "next-intl"
@@ -29,7 +30,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null)
+  const [lightboxImages, setLightboxImages] = useState<string[]>([])
+  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,7 +84,13 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110 z-20 cursor-pointer"
                   onClick={(e) => {
                     e.stopPropagation()
-                    setLightboxImage(project.image || "")
+                    const allImages = project.images && project.images.length > 0
+                      ? [project.image, ...project.images].filter(Boolean)
+                      : [project.image].filter(Boolean)
+                    if (allImages.length > 0) {
+                      setLightboxImages(allImages as string[])
+                      setLightboxIndex(0)
+                    }
                   }}
                 >
                   <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 hover:bg-white/40 transition-colors">
@@ -163,28 +171,63 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
     </section>
 
     {/* Lightbox Modal */}
-      {lightboxImage && (
+      {lightboxImages.length > 0 && (
         <div 
-          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
           style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
-          onClick={() => setLightboxImage(null)}
+          onClick={() => setLightboxImages([])}
         >
-          <div className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center">
-            <img 
-              src={lightboxImage} 
-              alt="Project Image Expanded" 
-              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
+          <div className="relative w-full h-full flex flex-col items-center justify-center max-w-7xl mx-auto">
+            {/* Close Button */}
             <button 
-              className="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 transition-colors"
+              className="absolute top-4 right-4 md:top-8 md:right-8 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors z-50 backdrop-blur-sm"
               onClick={(e) => {
                 e.stopPropagation()
-                setLightboxImage(null)
+                setLightboxImages([])
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
+
+            {/* Navigation Buttons */}
+            {lightboxImages.length > 1 && (
+              <>
+                <button
+                  className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-4 transition-colors z-50 backdrop-blur-sm"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setLightboxIndex((prev) => (prev === 0 ? lightboxImages.length - 1 : prev - 1))
+                  }}
+                >
+                  <ChevronLeft className="w-8 h-8" />
+                </button>
+                <button
+                  className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-4 transition-colors z-50 backdrop-blur-sm"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setLightboxIndex((prev) => (prev === lightboxImages.length - 1 ? 0 : prev + 1))
+                  }}
+                >
+                  <ChevronRight className="w-8 h-8" />
+                </button>
+              </>
+            )}
+
+            {/* Main Image */}
+            <div className="relative w-full flex-1 max-h-[85vh] flex items-center justify-center px-16" onClick={(e) => e.stopPropagation()}>
+              <img 
+                src={lightboxImages[lightboxIndex]} 
+                alt={`Project Image ${lightboxIndex + 1}`} 
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-opacity duration-300"
+              />
+            </div>
+            
+            {/* Image Counter */}
+            {lightboxImages.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full backdrop-blur-sm font-medium">
+                {lightboxIndex + 1} / {lightboxImages.length}
+              </div>
+            )}
           </div>
         </div>
       )}

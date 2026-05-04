@@ -52,14 +52,22 @@ export default async function ContactPage() {
   let bannerTitle = 'تواصل معنا'
   let bannerSubtitle = 'نحن هنا لمساعدتك في تحقيق مشروع أحلامك. تواصل معنا الآن للحصول على استشارة'
 
+  let servicesList = []
   try {
     const db = await connectDB()
     if (db) {
       const settings = await SiteSettings.findOne({}).lean()
       if (settings?.contact?.whatsapps?.length > 0) phone = settings.contact.whatsapps[0]
       if (settings?.covers?.contact) bannerImage = settings.covers.contact
+
+      // Dynamically import Service model to avoid breaking if not used
+      const Service = (await import("@/models/Service")).default
+      const svcs = await Service.find({}).lean()
+      servicesList = JSON.parse(JSON.stringify(svcs))
     }
-  } catch (e) {}
+  } catch (e) {
+    console.error("Error fetching services for contact page:", e)
+  }
 
   return (
     <main className="min-h-screen">
@@ -71,7 +79,7 @@ export default async function ContactPage() {
         fallbackImage=""
       />
       <div className="grid lg:grid-cols-2 gap-0">
-        <ContactForm whatsappPhone={phone} />
+        <ContactForm whatsappPhone={phone} services={servicesList} />
         <ContactInfo />
       </div>
       <ContactMap />

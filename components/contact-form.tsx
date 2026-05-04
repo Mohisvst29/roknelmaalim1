@@ -8,10 +8,11 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Send, CheckCircle } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
-export default function ContactForm({ whatsappPhone = "+966536788004" }: { whatsappPhone?: string }) {
+export default function ContactForm({ whatsappPhone = "+966536788004", services = [] }: { whatsappPhone?: string, services?: any[] }) {
   const t = useTranslations("Contact")
+  const locale = useLocale()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
@@ -133,10 +134,20 @@ ${t("whatsappDetails")}: ${formData.message}
                       <SelectValue placeholder={t("serviceTypePlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="الأعمال المدنية والكهروميكانيكية">{t("service1")}</SelectItem>
-                      <SelectItem value="أنظمة التيار الخفيف">{t("service2")}</SelectItem>
-                      <SelectItem value="البنية التحتية والاتصالات">{t("service3")}</SelectItem>
-                      <SelectItem value="خدمات أخرى">{t("service4")}</SelectItem>
+                      {services && services.length > 0 ? (
+                        services.map((s, i) => (
+                          <SelectItem key={i} value={locale === 'en' && s.titleEn ? s.titleEn : s.title}>
+                            {locale === 'en' && s.titleEn ? s.titleEn : s.title}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <>
+                          <SelectItem value="الأعمال المدنية والكهروميكانيكية">{t("service1")}</SelectItem>
+                          <SelectItem value="أنظمة التيار الخفيف">{t("service2")}</SelectItem>
+                          <SelectItem value="البنية التحتية والاتصالات">{t("service3")}</SelectItem>
+                          <SelectItem value="خدمات أخرى">{t("service4")}</SelectItem>
+                        </>
+                      )}
                     </SelectContent>
                   </Select>
                 </div>
