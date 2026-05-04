@@ -14,10 +14,18 @@ import SiteSettings from "@/models/SiteSettings"
 import connectDB from "@/lib/db"
 
 export default async function HomePage() {
-  await connectDB()
-  const dbServices = await getServices()
-  const dbProjects = await getProjects()
-  const settings = await SiteSettings.findOne({}).lean() || {}
+  let dbServices = []
+  let dbProjects = []
+  let settings: any = {}
+
+  try {
+    await connectDB()
+    dbServices = await getServices()
+    dbProjects = await getProjects()
+    settings = await SiteSettings.findOne({}).lean() || {}
+  } catch (error) {
+    console.error("Database connection failed on homepage:", error)
+  }
   
   const heroSlides = settings.hero?.length > 0 ? settings.hero : []
 
