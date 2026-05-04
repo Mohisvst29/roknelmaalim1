@@ -4,32 +4,33 @@ import { useEffect, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { useTranslations } from "next-intl"
 
-export default function ProjectsStats() {
+export default function ProjectsStats({ settings }: { settings?: any }) {
   const t = useTranslations("ProjectsStats")
+  const tAbout = useTranslations("About") // To get the 'experts' translation
 
   const stats = [
     {
-      number: 250,
+      number: settings?.achievements?.projectsCompleted || 250,
       label: t("completedProjects"),
       description: t("completedProjectsDesc"),
       suffix: "+",
     },
     {
-      number: 15,
+      number: settings?.achievements?.yearsExperience || 15,
       label: t("yearsExperience"),
       description: t("yearsExperienceDesc"),
       suffix: "+",
     },
     {
-      number: 150,
+      number: settings?.achievements?.satisfiedClients || 150,
       label: t("satisfiedClients"),
       description: t("satisfiedClientsDesc"),
       suffix: "+",
     },
     {
-      number: 50,
-      label: t("ongoingProjects"),
-      description: t("ongoingProjectsDesc"),
+      number: settings?.achievements?.experts || 50,
+      label: tAbout("experts"), // using experts instead of ongoing projects to match global settings
+      description: "فريق من الخبراء والمتخصصين", // "A team of experts and specialists"
       suffix: "+",
     },
   ]

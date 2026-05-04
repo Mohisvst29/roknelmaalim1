@@ -55,7 +55,7 @@ export default async function ProjectsPage() {
         subtitle={bannerSubtitle}
         fallbackImage=""
       />
-      <ProjectsStats />
+      <ProjectsStats settings={plainSettings} />
       <ProjectsGallery projects={plainProjects} />
 
       {/* Structured Data */}
