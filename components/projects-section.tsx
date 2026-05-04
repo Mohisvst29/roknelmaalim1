@@ -26,6 +26,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null)
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -71,28 +73,42 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
               style={{ transitionDelay: `${index * 100 + 500}ms` }}
               onClick={() => toggleCardExpansion(project._id)}
             >
-              {/* صورة المشروع */}
               <div className="relative overflow-hidden">
+                <div 
+                  className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110 z-20 cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setLightboxImage(project.image || "")
+                  }}
+                >
+                  <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 hover:bg-white/40 transition-colors">
+                    <Eye className="w-8 h-8 text-white" />
+                  </div>
+                </div>
                 <img
                   src={project.image || ""}
                   alt={project.title}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Eye className="w-8 h-8 text-white" />
-                </div>
-                <div className="absolute top-4 right-4 bg-[#C4D600] text-[#0D2240] px-3 py-1 rounded-full text-sm font-medium transform group-hover:scale-110 transition-transform duration-300">
+                <div className="absolute top-4 right-4 bg-[#D87C31] text-white px-3 py-1 rounded-full text-sm font-medium transform group-hover:scale-110 transition-transform duration-300 z-10">
                   {project.category}
                 </div>
               </div>
 
               {/* تفاصيل المشروع */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-[#0D2240] mb-2 group-hover:text-[#C4D600] transition-colors duration-300">
+              <div className="p-6 relative z-10">
+                <h3 className="text-xl font-bold text-[#0D2240] mb-2 group-hover:text-[#D87C31] transition-colors duration-300">
                   {project.title}
                 </h3>
-                <div className="flex items-center gap-2 text-[#2D3640] mb-4">
+                <div 
+                  className="flex items-center gap-2 text-[#2D3640] mb-4 group-hover:text-[#D87C31] transition-colors duration-300 cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(`https://maps.google.com/?q=${encodeURIComponent(project.location)}`, '_blank');
+                  }}
+                  title="افتح في الخرائط"
+                >
                   <MapPin className="w-4 h-4" />
                   <span>{project.location}</span>
                 </div>
@@ -113,7 +129,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                 <Link href={`/projects/${project._id}`} onClick={(e) => e.stopPropagation()}>
                   <Button
                     variant="outline"
-                    className="w-full border-[#0D2240] text-[#0D2240] hover:bg-[#0D2240] hover:text-white bg-transparent mt-4 group-hover:border-[#C4D600] group-hover:text-[#C4D600] transition-all duration-300"
+                    className="w-full border-[#0D2240] text-[#0D2240] hover:bg-[#0D2240] hover:text-white bg-transparent mt-4 group-hover:border-[#D87C31] group-hover:text-[#D87C31] transition-all duration-300"
                   >
                     عرض التفاصيل
                     <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -132,14 +148,40 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           <Link href="/projects">
             <Button
               size="lg"
-              className="bg-[#C4D600] hover:bg-[#e6a61a] text-[#0D2240] font-bold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="bg-[#D87C31] hover:bg-[#b86624] text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              عرض جميع مشاريعنا في المملكةالمدينة المنورة
+              عرض جميع مشاريعنا
               <ArrowLeft className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
             </Button>
           </Link>
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div 
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightboxImage(null)}
+        >
+          <div className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center">
+            <img 
+              src={lightboxImage} 
+              alt="Project Image Expanded" 
+              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button 
+              className="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation()
+                setLightboxImage(null)
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
