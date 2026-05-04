@@ -194,7 +194,8 @@ export default function ProjectsGallery({ projects }: ProjectsGalleryProps) {
             </div>
           )}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Lightbox Modal */}
       {lightboxImage && (

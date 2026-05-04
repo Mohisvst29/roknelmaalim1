@@ -156,9 +156,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             </Button>
           </Link>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* Lightbox Modal */}
+    {/* Lightbox Modal */}
       {lightboxImage && (
         <div 
           className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
