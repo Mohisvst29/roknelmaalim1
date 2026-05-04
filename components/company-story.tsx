@@ -22,19 +22,19 @@ export default async function CompanyStory({ settings }: { settings?: any }) {
 
           <div className="grid grid-cols-2 gap-6">
             <Card className="p-6 text-center bg-[#C4D600]/10 hover:bg-[#C4D600]/20 transition-colors">
-              <div className="text-4xl font-bold text-[#0D2240] mb-2">2012</div>
-              <div className="text-[#2D3640] font-medium">{t("foundedInAl Madinah")}</div>
-            </Card>
-            <Card className="p-6 text-center bg-[#0D2240]/10 hover:bg-[#0D2240]/20 transition-colors">
-              <div className="text-4xl font-bold text-[#C4D600] mb-2">2023</div>
-              <div className="text-[#2D3640] font-medium">{t("foundedInKsa")}</div>
-            </Card>
-            <Card className="p-6 text-center bg-[#0D2240]/10 hover:bg-[#0D2240]/20 transition-colors">
-              <div className="text-4xl font-bold text-[#C4D600] mb-2">{settings?.achievements?.projectsCompleted || 110}+</div>
+              <div className="text-4xl font-bold text-[#0D2240] mb-2">+{settings?.achievements?.projectsCompleted || 110}</div>
               <div className="text-[#2D3640] font-medium">{t("completedProjects")}</div>
             </Card>
+            <Card className="p-6 text-center bg-[#0D2240]/10 hover:bg-[#0D2240]/20 transition-colors">
+              <div className="text-4xl font-bold text-[#C4D600] mb-2">+{settings?.achievements?.satisfiedClients || 100}</div>
+              <div className="text-[#2D3640] font-medium">{t("satisfiedClients")}</div>
+            </Card>
+            <Card className="p-6 text-center bg-[#0D2240]/10 hover:bg-[#0D2240]/20 transition-colors">
+              <div className="text-4xl font-bold text-[#C4D600] mb-2">{settings?.achievements?.yearsExperience || 15}</div>
+              <div className="text-[#2D3640] font-medium">{t("yearsExperience")}</div>
+            </Card>
             <Card className="p-6 text-center bg-[#C4D600]/10 hover:bg-[#C4D600]/20 transition-colors">
-              <div className="text-4xl font-bold text-[#0D2240] mb-2">{settings?.achievements?.experts || 45}</div>
+              <div className="text-4xl font-bold text-[#0D2240] mb-2">+{settings?.achievements?.experts || 45}</div>
               <div className="text-[#2D3640] font-medium">{t("experts")}</div>
             </Card>
           </div>

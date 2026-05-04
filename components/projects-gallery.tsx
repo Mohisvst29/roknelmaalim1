@@ -72,7 +72,8 @@ export default function ProjectsGallery({ projects }: ProjectsGalleryProps) {
     activeCategory === "all" ? projects : projects.filter((project) => project.category === activeCategory)
 
   return (
-    <section
+    <>
+      <section
       ref={sectionRef}
       className={`py-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
@@ -193,12 +194,13 @@ export default function ProjectsGallery({ projects }: ProjectsGalleryProps) {
             </div>
           )}
         </div>
-      </div>
+      </section>
 
       {/* Lightbox Modal */}
       {lightboxImage && (
         <div 
           className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           onClick={() => setLightboxImage(null)}
         >
           <div className="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center">
@@ -220,7 +222,7 @@ export default function ProjectsGallery({ projects }: ProjectsGalleryProps) {
           </div>
         </div>
       )}
-    </section>
+    </>
   )
 }
 
