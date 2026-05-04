@@ -106,15 +106,6 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
                     <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   </div>
                 )}
-                <div
-                  className={`bg-[#C4D600] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-300 ${expandedCard === index ? "bg-[#0D2240] scale-110" : "group-hover:scale-110 group-hover:rotate-12"
-                    } ${service.image ? "-mt-12 relative z-10 border-4 border-white" : ""}`}
-                >
-                  <IconComponent
-                    className={`w-8 h-8 transition-all duration-300 ${expandedCard === index ? "text-[#C4D600]" : "text-[#0D2240] group-hover:text-white"
-                      }`}
-                  />
-                </div>
 
                 <h3 className="text-xl font-bold text-[#0D2240] mb-3 group-hover:text-[#C4D600] transition-colors duration-300">
                   {locale === 'en' && service.titleEn ? service.titleEn : service.title}

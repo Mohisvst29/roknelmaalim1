@@ -98,19 +98,8 @@ export default function ServicesGrid({ services = [] }: { services?: Service[] }
                       <div className="absolute top-0 left-0 w-full h-full bg-white/20 transform rotate-45 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
                     </div>
                     
-                    {/* Icon */}
-                    <div className={`relative z-10 transition-all duration-300 ${hoveredService === service._id ? 'scale-110' : ''}`}>
-                      <div className="bg-white/20 backdrop-blur-sm p-6 rounded-2xl border border-white/30 shadow-lg">
-                        <IconComponent className="w-16 h-16 text-white" />
-                      </div>
-                    </div>
 
-                    {/* Floating elements */}
-                    <div className="absolute top-4 right-4">
-                      <div className="bg-[#C4D600] p-3 rounded-full shadow-lg">
-                        <IconComponent className="w-6 h-6 text-[#0D2240]" />
-                      </div>
-                    </div>
+
 
                     {/* Decorative dots */}
                     <div className="absolute bottom-4 left-4 flex gap-2">
