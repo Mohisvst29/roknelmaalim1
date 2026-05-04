@@ -45,6 +45,7 @@ export default async function ProjectsPage() {
   }
 
   const plainProjects = JSON.parse(JSON.stringify(projects))
+  const plainSettings = JSON.parse(JSON.stringify(settings || {}))
 
   return (
     <main className="min-h-screen">
