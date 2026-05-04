@@ -9,7 +9,24 @@ import Project from "@/models/Project"
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   await connectDB()
   try {
-    const project = await Project.findById(params.slug)
+    const decodedSlug = decodeURIComponent(params.slug)
+    let project = null;
+    
+    if (decodedSlug.match(/^[0-9a-fA-F]{24}$/)) {
+      project = await Project.findById(decodedSlug)
+    }
+    
+    if (!project) {
+      project = await Project.findOne({
+        $or: [
+          { href: decodedSlug },
+          { href: `/${decodedSlug}` },
+          { href: `/projects/${decodedSlug}` },
+          { title: decodedSlug }
+        ]
+      })
+    }
+    
     if (!project) {
       return {
         title: "المشروع غير موجود",
@@ -31,7 +48,26 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
   let project = null
   
   try {
-    const doc = await Project.findById(params.slug)
+    const decodedSlug = decodeURIComponent(params.slug)
+    let doc = null;
+    
+    // Check if it's a valid ObjectId
+    if (decodedSlug.match(/^[0-9a-fA-F]{24}$/)) {
+      doc = await Project.findById(decodedSlug)
+    }
+    
+    // If not found or not an ObjectId, try matching href or title
+    if (!doc) {
+      doc = await Project.findOne({
+        $or: [
+          { href: decodedSlug },
+          { href: `/${decodedSlug}` },
+          { href: `/projects/${decodedSlug}` },
+          { title: decodedSlug }
+        ]
+      })
+    }
+    
     if (doc) {
       project = JSON.parse(JSON.stringify(doc))
     }
