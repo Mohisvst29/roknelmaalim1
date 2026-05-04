@@ -44,7 +44,7 @@ const TikTokIcon = () => (
 
 export default function ClientContactInfo({
   email = "info@rukanalmaalim.com",
-  phone = "+966536788004",
+  phone = "+966538833968",
   location = "طريق الملك عبدالعزيز، السعوديةالمدينة المنورة",
   facebook = "",
   twitter = "",
@@ -57,7 +57,7 @@ export default function ClientContactInfo({
   facebook?: string, twitter?: string, instagram?: string, linkedin?: string, snapchat?: string, tiktok?: string
 }) {
   const t = useTranslations("Contact")
-  const waPhone = (phone || "+966536788004").replace(/[^\d+]/g, '')
+  const waPhone = (phone || "+966538833968").replace(/[^\d+]/g, '')
 
   const contactMethods = [
     {

@@ -76,7 +76,7 @@ export default async function ServicesPage() {
             "name": "ركن المعالم للمقاولات",
             "description": "شركة متخصصة في الأعمال المدنية والاتصالات وأنظمة التيار الخفيف والكهروميكانيكا.",
             "url": "https://www.rukanalmaalim.com/",
-            "telephone": "+966536788004",
+            "telephone": "+966538833968",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "السعودية، المدينة المنورة",

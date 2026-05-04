@@ -4,7 +4,7 @@ import ClientContactInfo from "./client-contact-info"
 
 export default async function ContactInfo() {
   let email = "info@diamondgrowth.com"
-  let phone = "+966536788004"
+  let phone = "+966538833968"
   let location = "طريق الملك عبدالعزيز، السعوديةالمدينة المنورة"
   
   let facebook = ""

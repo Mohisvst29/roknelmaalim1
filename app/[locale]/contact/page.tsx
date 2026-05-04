@@ -47,7 +47,7 @@ export const metadata = {
 }
 
 export default async function ContactPage() {
-  let phone = "+966536788004"
+  let phone = "+966538833968"
   let bannerImage = ''
   let bannerTitle = 'تواصل معنا'
   let bannerSubtitle = 'نحن هنا لمساعدتك في تحقيق مشروع أحلامك. تواصل معنا الآن للحصول على استشارة'

@@ -3,7 +3,7 @@ import SiteSettings from "@/models/SiteSettings"
 import ClientFloatingContact from "./client-floating-contact"
 
 export default async function FloatingContact() {
-  let phone = "+966536788004"
+  let phone = "+966538833968"
 
   try {
     const db = await connectDB()

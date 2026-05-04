@@ -2,9 +2,9 @@
 
 import { Phone } from "lucide-react"
 
-export default function ClientFloatingContact({ phone = "+966536788004" }: { phone?: string }) {
+export default function ClientFloatingContact({ phone = "+966538833968" }: { phone?: string }) {
   // Format phone for WhatsApp by removing non-digits
-  const waPhone = (phone || "+966536788004").replace(/[^\d+]/g, '')
+  const waPhone = (phone || "+966538833968").replace(/[^\d+]/g, '')
   
   return (
     <div className="fixed left-6 bottom-6 z-50 flex flex-col space-y-4">

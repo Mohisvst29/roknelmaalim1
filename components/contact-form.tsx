@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Send, CheckCircle } from "lucide-react"
 import { useTranslations, useLocale } from "next-intl"
 
-export default function ContactForm({ whatsappPhone = "+966536788004", services = [] }: { whatsappPhone?: string, services?: any[] }) {
+export default function ContactForm({ whatsappPhone = "+966538833968", services = [] }: { whatsappPhone?: string, services?: any[] }) {
   const t = useTranslations("Contact")
   const locale = useLocale()
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -26,7 +26,7 @@ export default function ContactForm({ whatsappPhone = "+966536788004", services 
     e.preventDefault()
 
     // Format phone for WhatsApp by removing non-digits
-    const whatsappNumber = (whatsappPhone || "+966536788004").replace(/[^\d+]/g, '')
+    const whatsappNumber = (whatsappPhone || "+966538833968").replace(/[^\d+]/g, '')
 
     const text = `
 ${t("whatsappMessageHeader")}

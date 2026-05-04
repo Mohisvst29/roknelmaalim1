@@ -41,7 +41,7 @@ async function seed() {
       },
       contact: {
         phones: ["+966505123456"],
-        whatsapps: ["+966536788004", "+966541430116"],
+        whatsapps: ["+966538833968", "+966541430116"],
         emails: ["info@diamond-growth.com"],
         addresses: ["طريق الملك فهد، الرياض، المملكة العربية السعودية"],
         mapLinks: ["https://maps.google.com/?q=Riyadh"]

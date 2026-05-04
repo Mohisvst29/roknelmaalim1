@@ -22,7 +22,7 @@ function getFontVariable(fontName: string) {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  let phone = "+966536788004"
+  let phone = "+966538833968"
   try {
     const db = await connectDB()
     if (db) {
@@ -59,7 +59,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
 export default async function RootLayout({ children, params: { locale } }: { children: React.ReactNode, params: { locale: string } }) {
-  let phone = "+966536788004"
+  let phone = "+966538833968"
   let primaryColor = "#0D2240"
   let secondaryColor = "#C4D600"
   let fontName = "Tajawal"

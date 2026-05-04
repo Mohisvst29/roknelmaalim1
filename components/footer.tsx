@@ -1,5 +1,5 @@
 import { Link } from "@/navigation";
-import { Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // أيقونات سناب شات و تيك توك مخصصة
@@ -51,6 +51,7 @@ export default async function Footer() {
   
   let contactEmail = "info@diamondgrowth.com"
   let contactLocation = "طريق الملك عبدالعزيز، السعودية، المدينة المنورة"
+  let contactPhone = "+966538833968"
   let servicesList: any[] = []
   
   let socialFacebook = ""
@@ -69,6 +70,7 @@ export default async function Footer() {
       if (settings?.logo?.height) logoHeight = settings.logo.height.toString()
       
       if (settings?.contact?.emails?.length > 0) contactEmail = settings.contact.emails[0]
+      if (settings?.contact?.whatsapps?.length > 0) contactPhone = settings.contact.whatsapps[0]
       if (settings?.contact?.addresses?.length > 0) contactLocation = settings.contact.addresses.join("، ")
       
       socialFacebook = settings?.social?.facebook || ""
@@ -150,6 +152,10 @@ export default async function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6">{t("contactInfo")}</h4>
             <div className="space-y-4">
+              <div className="flex items-center">
+                <Phone className={`w-5 h-5 text-[#C4D600] ${locale === 'en' ? 'mr-3' : 'ml-3'}`} />
+                <span className="text-gray-300" dir="ltr">{contactPhone}</span>
+              </div>
               <div className="flex items-center">
                 <Mail className={`w-5 h-5 text-[#C4D600] ${locale === 'en' ? 'mr-3' : 'ml-3'}`} />
                 <span className="text-gray-300">{contactEmail}</span>

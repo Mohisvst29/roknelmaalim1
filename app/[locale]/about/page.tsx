@@ -85,7 +85,7 @@ export default async function AboutPage() {
               "@type": "Organization",
               name: "ركن المعالم للمقاولات",
               url: "https://www.rukanalmaalim.com/",
-              telephone: "+966536788004",
+              telephone: "+966538833968",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "السعوديةالمدينة المنورة",
