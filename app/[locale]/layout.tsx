@@ -21,6 +21,8 @@ function getFontVariable(fontName: string) {
   }
 }
 
+export const revalidate = 60; // Revalidate every 60 seconds to ensure DB changes are reflected
+
 export async function generateMetadata(): Promise<Metadata> {
   let phone = "+966538833968"
   try {
