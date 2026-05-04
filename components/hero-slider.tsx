@@ -61,8 +61,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       ))}
 
       {/* Content */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="text-center text-white max-w-4xl px-4">
+      <div className="absolute inset-0 flex flex-col justify-end pb-24 items-center">
+        <div className="text-center text-white max-w-4xl px-4 mt-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">
             {locale === 'en' && effectiveSlides[currentSlide]?.titleEn 
               ? effectiveSlides[currentSlide]?.titleEn 
