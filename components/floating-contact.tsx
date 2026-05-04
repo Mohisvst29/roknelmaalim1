@@ -4,18 +4,16 @@ import ClientFloatingContact from "./client-floating-contact"
 
 export default async function FloatingContact() {
   let phone = "+966536788004"
-  let snapchat = "#"
 
   try {
     const db = await connectDB()
     if (db) {
       const settings = await SiteSettings.findOne({}).lean()
       if (settings?.contact?.whatsapps?.length > 0) phone = settings.contact.whatsapps[0]
-      if (settings?.social?.snapchat) snapchat = settings.social.snapchat
     }
   } catch (error) {
     console.error("Failed to fetch contact phone:", error)
   }
 
-  return <ClientFloatingContact phone={phone} snapchat={snapchat} />
+  return <ClientFloatingContact phone={phone} />
 }

@@ -2,23 +2,12 @@
 
 import { Phone } from "lucide-react"
 
-export default function ClientFloatingContact({ phone = "+966536788004", snapchat = "#" }: { phone?: string, snapchat?: string }) {
+export default function ClientFloatingContact({ phone = "+966536788004" }: { phone?: string }) {
   // Format phone for WhatsApp by removing non-digits
   const waPhone = (phone || "+966536788004").replace(/[^\d+]/g, '')
   
   return (
     <div className="fixed left-6 bottom-6 z-50 flex flex-col space-y-4">
-      {/* Snapchat */}
-      <a
-        href={snapchat}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-[#FFFC00] hover:bg-[#fff700] text-black w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-colors"
-        title="سناب شات"
-      >
-        <svg viewBox="0 0 448 512" fill="currentColor" className="w-7 h-7"><path d="M424.2 284c-11.8-6.1-26.6-8.6-43.6-7.3-8.8 33-28.9 59.9-57 80.2 4.4 13.9 16.7 26.5 35 36.3 32.5 17.5 54.3 22.8 61.3 24.3 7.8 1.7 10 7.8 8.1 11.5-1.4 2.8-5.7 4.1-12.7 4.1h-.4c-53-1-105-38.4-133.3-70.9-10.7 7.7-25 12.3-43 12.3s-32.3-4.6-43-12.3c-28.3 32.5-80.3 69.9-133.3 70.9-.1 0-.3 0-.4 0-7 0-11.3-1.3-12.7-4.1-1.9-3.7.3-9.8 8.1-11.5 7-1.5 28.8-6.8 61.3-24.3 18.2-9.8 30.6-22.4 35-36.3-28.1-20.4-48.2-47.3-57-80.2-17-1.3-31.8 1.2-43.6 7.3-3.6 1.8-6.9 2.5-9.4 2.5-7.5 0-11.5-5.9-10.3-10.7 1.8-7 13.2-15.6 30.5-22.1 27.2-10.2 60.1-12 87-4.2 13-33 11-103.5-3.3-149.7C92.2 47.9 146.4 15.3 224 15.3s131.8 32.6 150.3 84c-14.3 46.2-16.3 116.7-3.3 149.7 26.9-7.8 59.8-6 87 4.2 17.3 6.6 28.7 15.2 30.5 22.1 1.2 4.8-2.8 10.7-10.3 10.7-2.6-.1-5.9-.8-9.5-2.6z"/></svg>
-      </a>
-
       {/* WhatsApp */}
       <a
         href={`https://wa.me/${waPhone}`}

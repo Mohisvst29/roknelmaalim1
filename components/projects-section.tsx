@@ -126,7 +126,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   </div>
                 </div>
 
-                <Link href={`/projects/${project._id}`} onClick={(e) => e.stopPropagation()}>
+                <Link href={`/projects/${project._id}`} onClick={(e) => e.stopPropagation()} target="_blank">
                   <Button
                     variant="outline"
                     className="w-full border-[#0D2240] text-[#0D2240] hover:bg-[#0D2240] hover:text-white bg-transparent mt-4 group-hover:border-[#D87C31] group-hover:text-[#D87C31] transition-all duration-300"
