@@ -127,7 +127,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   </div>
                 </div>
 
-                <Link href={`/projects/${project._id}`} onClick={(e) => e.stopPropagation()} target="_blank">
+                <a href={`/${locale}/projects/${project._id}`} onClick={(e) => e.stopPropagation()} target="_blank" rel="noopener noreferrer" className="block w-full">
                   <Button
                     variant="outline"
                     className="w-full border-[#0D2240] text-[#0D2240] hover:bg-[#0D2240] hover:text-white bg-transparent mt-4 group-hover:border-[#D87C31] group-hover:text-[#D87C31] transition-all duration-300"
@@ -135,7 +135,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     عرض التفاصيل
                     <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </Button>
-                </Link>
+                </a>
               </div>
             </Card>
           ))}

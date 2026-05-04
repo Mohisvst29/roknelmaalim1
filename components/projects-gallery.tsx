@@ -175,7 +175,7 @@ export default function ProjectsGallery({ projects }: ProjectsGalleryProps) {
                   </div>
                 </div>
 
-                <Link href={project.href || `/projects/${project._id}`} onClick={(e) => e.stopPropagation()} target="_blank">
+                <a href={project.href || `/${locale}/projects/${project._id}`} onClick={(e) => e.stopPropagation()} target="_blank" rel="noopener noreferrer" className="block w-full">
                   <Button className="w-full bg-[#0D2240] hover:bg-[#D87C31] hover:text-white text-white transition-all duration-300 group-hover:shadow-lg transform group-hover:-translate-y-1">
                     {t("projectDetails")}
                     {locale === 'en' ? (
@@ -184,7 +184,7 @@ export default function ProjectsGallery({ projects }: ProjectsGalleryProps) {
                       <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
                     )}
                   </Button>
-                </Link>
+                </a>
               </div>
             </Card>
           ))}
