@@ -17,11 +17,14 @@ interface Project {
   image: string
 }
 
+import { useLocale } from "next-intl"
+
 interface ProjectsSectionProps {
   projects: Project[]
 }
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
+  const locale = useLocale()
   const [isVisible, setIsVisible] = useState(false)
   const [expandedCard, setExpandedCard] = useState<string | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
