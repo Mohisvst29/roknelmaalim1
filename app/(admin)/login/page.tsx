@@ -16,13 +16,24 @@ function LoginForm() {
     const callbackUrl = searchParams.get("callbackUrl") || "/admin"
     const [isLoading, setIsLoading] = useState(false)
 
-    async function handleSubmit(formData: FormData) {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         setIsLoading(true)
         try {
-            // Using the server action to handle sign in
-            const result = await authenticate(formData)
+            const formData = new FormData(e.currentTarget)
+            const username = formData.get("username") as string
+            const password = formData.get("password") as string
+            
+            const result = await signIn("credentials", {
+                username,
+                password,
+                redirect: false
+            })
+            
             if (result?.error) {
                 toast.error("بيانات الدخول غير صحيحة")
+            } else if (result?.ok) {
+                window.location.href = callbackUrl
             }
         } catch (error) {
             toast.error("حدث خطأ أثناء تسجيل الدخول")
@@ -43,17 +54,17 @@ function LoginForm() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="pt-8">
-                <form action={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <input type="hidden" name="redirectTo" value={callbackUrl} />
                     <div className="space-y-2">
-                        <Label htmlFor="email" className="text-[#0D2240] font-medium">البريد الإلكتروني</Label>
+                        <Label htmlFor="username" className="text-[#0D2240] font-medium">اسم المستخدم</Label>
                         <div className="relative">
                             <Mail className="absolute right-3 top-3 h-5 w-5 text-gray-400" />
                             <Input
-                                id="email"
-                                name="email"
-                                type="email"
-                                placeholder="name@example.com"
+                                id="username"
+                                name="username"
+                                type="text"
+                                placeholder="admin"
                                 required
                                 className="pr-10 h-12 border-gray-200 focus:border-[#C4D600] focus:ring-[#C4D600]/20 transition-all font-sans"
                             />

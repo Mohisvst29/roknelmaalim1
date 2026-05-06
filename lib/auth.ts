@@ -1,23 +1,41 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
+import mongoose from "mongoose"
+import bcrypt from "bcryptjs"
+import AdminUser from "@/models/AdminUser"
+
+const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+  await mongoose.connect(process.env.MONGODB_URI as string);
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
         Credentials({
             name: "Admin Login",
             credentials: {
-                email: { label: "Email", type: "email" },
+                username: { label: "Username", type: "text" },
                 password: { label: "Password", type: "password" },
             },
             authorize: async (credentials) => {
-                // Simple hardcoded check for the "admin" user
-                // In a real app, you'd check against a database
-                const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com"
+                await connectDB();
+                
+                const admin = await mongoose.models.AdminUser.findOne({ username: credentials?.username });
+                
+                if (admin && credentials?.password) {
+                    const isValid = await bcrypt.compare(credentials.password as string, admin.passwordHash);
+                    if (isValid) {
+                        return { id: admin._id.toString(), name: admin.username, email: admin.username, role: "admin" }
+                    }
+                }
+
+                // Fallback to hardcoded admin if no DB admin exists or matches
+                const adminEmail = process.env.ADMIN_EMAIL || "admin"
                 const adminPassword = process.env.ADMIN_PASSWORD || "admin123"
 
                 if (
-                    credentials.email === adminEmail &&
-                    credentials.password === adminPassword
+                    credentials?.username === adminEmail &&
+                    credentials?.password === adminPassword
                 ) {
                     return { id: "1", name: "Admin", email: adminEmail, role: "admin" }
                 }
