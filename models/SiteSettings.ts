@@ -72,6 +72,7 @@ export interface ISiteSettings extends Document {
     instagram: string;
     linkedin: string;
     snapchat: string;
+    tiktok?: string;
   };
   // Success Partners
   partners: string[];
@@ -157,6 +158,7 @@ const SiteSettingsSchema = new Schema<ISiteSettings>({
     instagram: { type: String, default: '' },
     linkedin: { type: String, default: '' },
     snapchat: { type: String, default: '' },
+    tiktok: { type: String, default: '' },
   },
   partners: [{ type: String }],
   team: [{

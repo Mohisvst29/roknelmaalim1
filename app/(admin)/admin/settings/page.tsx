@@ -336,7 +336,8 @@ export default function SettingsPage() {
                 { id: 'twitter', label: 'تويتر (X)' },
                 { id: 'instagram', label: 'انستغرام' },
                 { id: 'linkedin', label: 'لينكد إن' },
-                { id: 'snapchat', label: 'سناب شات' }
+                { id: 'snapchat', label: 'سناب شات' },
+                { id: 'tiktok', label: 'تيك توك' }
               ].map((social) => (
                 <div key={social.id} className="space-y-2">
                   <Label>{social.label}</Label>
